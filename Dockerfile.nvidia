@@ -8,6 +8,7 @@ ADD . /tmp/src
 # restore the hooks directory so that the repository isn't marked as dirty
 RUN cd /tmp/src && git clean -xfd && git checkout -- hooks && git status
 RUN sed -i -e 's/FROM buildpack-deps:bionic/FROM nvidia\/cuda:10.1-base-ubuntu18.04/' /tmp/src/repo2docker/buildpacks/base.py
+RUN sed -i -e 's/"unzip"/"unzip","wget","bzip2"/' /tmp/src/repo2docker/buildpacks/base.py
 RUN mkdir /tmp/wheelhouse \
  && cd /tmp/wheelhouse \
  && pip3 install wheel \
